@@ -61,9 +61,8 @@ void checkEncoder() {
   }
 }
 
-void setup() {
-    Serial.begin(115200);
-    WiFi.begin(ssid, password);
+void initWifi(){
+  WiFi.begin(ssid, password);
     Serial.println("Connecting");
     while(WiFi.status() != WL_CONNECTED) { 
         delay(500);
@@ -72,8 +71,11 @@ void setup() {
     Serial.println("");
     Serial.print("Connected to WiFi network with IP Address: ");
     Serial.println(WiFi.localIP());
+}
+
+void setup() {
     Serial.begin(115200);
-    
+    initWifi();
     pinMode(PIN_A, INPUT_PULLUP);
     pinMode(PIN_B, INPUT_PULLUP);
     //  pinMode(PIN_BUTTON, INPUT_PULLUP);
@@ -102,7 +104,7 @@ void loop() {
         Pos--;
         distance = ((2*pi*R)/N) * Pos ;
         Serial.print("turnedCCW:   ");
-        Serial.println(distance );
+        Serial.println(distance);
         Serial.println("Mm");
         turnedCCW = false;
         lastWasCCW = true;
